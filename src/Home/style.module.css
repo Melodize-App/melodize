@@ -5,7 +5,6 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    /* max-width: 100vw; */
 }
 
 .secondPlaylistList {
@@ -52,7 +51,6 @@
 
 .title {
     color: white;
-    /* margin-top: 40px; */
     margin-left: 60px;
     font-size: 28px;
     font-weight: 400;

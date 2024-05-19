@@ -7,18 +7,16 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // משתנה חדש לבדיקה אם הבדיקה הראשונית הושלמה
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsAuthenticated(!!token);
-    setLoading(false); // עדכון שהטעינה הושלמה
+    setLoading(false);
   }, []);
 
-  // במקרה של טעינה, אפשר להחזיר null או קומפוננטת טעינה
   if (loading) {
-    return null; // או קומפוננטת Spinner לדוגמה
+    return null;
   }
 
   return (

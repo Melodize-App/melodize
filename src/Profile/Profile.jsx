@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Profile() {
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const { user, setUser, playing } = useContext(DataContext);
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState({
@@ -15,15 +15,16 @@ export default function Profile() {
     email: '',
   });
 
-  // עדכון editedUser כאשר user משתנה
+  // Update editedUser when user changes
   useEffect(() => {
     setEditedUser({
       fName: user.fName,
       lName: user.lName,
       email: user.email,
     });
-  }, [user]); // תלוי ב-user
+  }, [user]);
 
+  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditedUser(prevState => ({
@@ -32,46 +33,35 @@ export default function Profile() {
     }));
   };
 
+  // Save changes to user profile
   const handleSaveChanges = async () => {
-
     const token = localStorage.getItem('token');
     try {
       const response = await axios.put('http://localhost:3000/user', {
         ...editedUser,
-        email: user.email, // או כל מזהה אחר שתרצה להוסיף
+        email: user.email, // Or any other identifier you want to update
       }, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
       if (response.status === 200) {
-        setUser(response.data); // עדכון המצב עם הנתונים המעודכנים מהשרת
+        setUser(response.data); // Update state with new user data from server
         setIsEditing(false);
       }
-    } // בפונקציה של שליחת הבקשה, לדוגמה handleSaveChanges
-
-    catch (error) {
+    } catch (error) {
       console.error("Error updating profile", error);
-        // טוקן פג תוקף, הפנה לדף ההתחברות
-        navigate("/login");
-      
+      navigate("/login"); // Redirect to login if token is expired
     }
-  
   };
 
-  const handleEdit = (e) => {
-
-    setIsEditing(!isEditing)
-
-  }
-
-  // פונקציה לעדכון נתוני המשתמש
-  const updateUser = (newUserData) => {
-    setUser(newUserData);
+  // Toggle edit mode
+  const handleEdit = () => {
+    setIsEditing(!isEditing);
   };
 
   return (
-<div className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.userBox}>
         <div className={styles.image}>
           <div className={styles.userName}>
@@ -98,29 +88,19 @@ export default function Profile() {
                 className={styles.emailEdit}
                 name="email"
                 value={editedUser.email}
-                onChange={handleInputChange}
-              />
-            </>
-          ) : (
+                onChange={handleInputChange} />
+            </>) : (
             <>
               <div className={styles.firstName}> {user.fName}</div>
               <div className={styles.lastName}> {user.lName}</div>
               <div className={styles.email}>{user.email}</div>
-
             </>
           )}
         </div>
         <div className={styles.editButton}>
-          {isEditing ? (
-            <button onClick={handleSaveChanges}>Submit</button>
-          ) : (
-            <button onClick={handleEdit}>Edit</button>
-          )}
+          {isEditing ? (<button onClick={handleSaveChanges}>Submit</button>) : (<button onClick={handleEdit}>Edit</button>)}
         </div>
-
       </div>
     </div>
-
   );
-
 }

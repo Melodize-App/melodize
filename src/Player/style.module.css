@@ -1,4 +1,5 @@
-.video, .coverImage {
+.video,
+.coverImage {
   position: fixed;
   bottom: 25vh;
   left: 55vw;
@@ -30,8 +31,8 @@
 .title {
   position: fixed;
   left: 150px;
-  top:75%; /* מיקום באמצע המסך אנכית */
-  transform: translateY(-75%); /* העברת האלמנט כך שיאמצע האנכי שלו יימצא בדיוק באמצע המסך */
+  top: 75%;
+  transform: translateY(-75%);
   height: 25vw;
   font-size: 50px;
   color: var(--bright-color);
@@ -278,7 +279,8 @@ input[type="range"]::-webkit-slider-thumb {
   color: var(--bright-color);
 }
 
-.playVid, .openScreen {
+.playVid,
+.openScreen {
   width: 50px;
   height: 50px;
   border: none;
@@ -297,21 +299,9 @@ input[type="range"]::-webkit-slider-thumb {
 @media (max-width: 768px) {
 
 
-  /* .progressContainer {
-      position: absolute;
-      bottom: 180px;
-      width: 100vw;
-      height: 2px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-    } */
 
   .video,
   .coverImage {
-    /* position: fixed; */
     top: 50vh;
     left: 50%;
     width: 90%;
@@ -356,28 +346,6 @@ input[type="range"]::-webkit-slider-thumb {
 
   }
 
-  /* .player {
-      height: 150px;
-      flex-direction: column-reverse;
-      padding: 10px;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-  }
-
-
-  .songDetails {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    width: 80%;
-    margin-bottom: 10px;
-          position: relative;
-      bottom: 30px;
-
-} */
-
   .player {
     height: 150px;
     display: flex;
@@ -412,25 +380,22 @@ input[type="range"]::-webkit-slider-thumb {
 
 }
 
-.screen{
+.screen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
-    height: calc(100vh - 85px);
-    background-color: var(--dark-color);
+  height: calc(100vh - 85px);
+  background-color: var(--dark-color);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
-.closedScreen{
+.closedScreen {
   width: 0;
 }
-
-
-
 
 .hiddenVideo {
   display: none;

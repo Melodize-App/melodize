@@ -17,21 +17,13 @@
   box-sizing: border-box;
 }
 
-
-.logo {
-  /* font-size: 30px;
-  font-weight: 900;
-  cursor: pointer;
-  color: var(--bright-color) */
-}
-
 .logo img {
-height: 30px;
+  height: 30px;
 }
 
 .logo:hover {
   cursor: pointer;
-  }
+}
 
 
 .active {
@@ -130,7 +122,7 @@ height: 30px;
   padding: 8px 16px;
   margin: 0 15px;
   width: 100px;
-  transition: all 0.3s ease; /* מעבר רך לכל שינויים */
+  transition: all 0.3s ease;
 
 
 }

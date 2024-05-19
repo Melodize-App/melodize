@@ -20,7 +20,6 @@
 
 .highlight {
   display: inline-block;
-  /* animation: dropIn 0.5s ease-out; */
   color: var(--bright-color);
 }
 
@@ -197,6 +196,7 @@
     opacity: 0;
     transform: translateY(-100vh);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
