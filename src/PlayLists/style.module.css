@@ -1,0 +1,13 @@
+.listt {
+  padding: 20px;
+  margin: auto;
+  max-width: calc(100vw - 40px);
+  overflow: hidden;
+}
+
+.playlistItem {
+  margin: 0 50px;
+  width: calc(33.333% - 20px);
+  height: auto;
+  padding: 50px;
+}

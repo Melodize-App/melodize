@@ -1,0 +1,53 @@
+.likedPage {
+    padding: 50px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.listContainer {
+    min-width: 500px;
+    overflow-y: auto;
+    width: 40vw;
+    MAX-height: 90%;
+    padding: 20px;
+}
+
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bright-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--main-color);
+}
+
+
+@media (max-width: 768px) {
+    .likedPage {
+        height: 100%;
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .listContainer {
+        width: 80vw;
+        min-width: 0;
+    }
+}

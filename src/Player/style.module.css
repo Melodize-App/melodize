@@ -1,0 +1,437 @@
+.video, .coverImage {
+  position: fixed;
+  bottom: 25vh;
+  left: 55vw;
+  width: 30vw;
+  height: 25vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5%;
+  overflow: hidden;
+  z-index: 2000;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+.coverImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.title {
+  position: fixed;
+  left: 150px;
+  top:75%; /* מיקום באמצע המסך אנכית */
+  transform: translateY(-75%); /* העברת האלמנט כך שיאמצע האנכי שלו יימצא בדיוק באמצע המסך */
+  height: 25vw;
+  font-size: 50px;
+  color: var(--bright-color);
+  max-width: 30vw;
+}
+
+
+:global(.hidden) {
+  display: none;
+}
+
+:global(.visible) {
+  display: block;
+}
+
+
+.player {
+  width: 100vw;
+  height: 80px;
+  background-color: var(--dark-color);
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+}
+
+.progressContainer {
+  position: absolute;
+  bottom: 80px;
+  width: 100vw;
+  height: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.progressBar {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  height: 2px;
+  background-color: var(--bright-color);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.progressInput {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  position: absolute;
+  background: transparent;
+  cursor: pointer;
+  z-index: 0;
+}
+
+.progressInput::-webkit-slider-runnable-track {
+  background: #ffffff;
+  height: 2px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+}
+
+.playButton {
+  padding: 10px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  color: var(--dark-color);
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #ffffff;
+  transition: background-color 0.3s ease;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.playButton:hover {
+  background-color: var(--bright-color);
+  box-shadow: 0px 0px 10px rgb(44, 44, 44);
+}
+
+.nextButton,
+.prevButton {
+  padding: 20px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  cursor: pointer;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: none;
+  width: 2rem;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px rgb(44, 44, 44);
+}
+
+.songDetails {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 20px;
+  width: 25%;
+  margin-left: 100px;
+}
+
+
+.rightArea {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 20px;
+  width: 25%;
+
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 30%;
+  overflow: hidden;
+}
+
+.artistAndName {
+  width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.time {
+  font-size: 12px;
+  font-weight: 100;
+  min-width: 80px;
+  text-align: right;
+
+}
+
+.artist {
+  font-size: 12px;
+  font-weight: 100;
+}
+
+.progressOverlay {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: transparent;
+  pointer-events: all;
+  z-index: 10;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.player-enter {
+  animation: fadeIn 1s forwards;
+}
+
+.ytp-embed .ytp-chrome-controls {
+
+  display: none;
+}
+
+.ytp-chrome-top,
+.ytp-chrome-bottom {
+
+  display: none;
+}
+
+.ytp-hide-controls:not(.ytp-mweb-player) .ytp-watermark {
+  display: none;
+
+}
+
+.likeButton {
+  background: none;
+  border: none;
+  color: white;
+  padding: 0;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.likeButton svg {
+  font-size: 1.5rem;
+}
+
+.likeButton:hover {
+  color: var(--bright-color);
+}
+
+.likeButton.liked {
+  color: var(--bright-color);
+}
+
+.playVid, .openScreen {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  color: var(--bright-color);
+  font-weight: bold;
+  cursor: pointer;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@media (max-width: 768px) {
+
+
+  /* .progressContainer {
+      position: absolute;
+      bottom: 180px;
+      width: 100vw;
+      height: 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    } */
+
+  .video,
+  .coverImage {
+    /* position: fixed; */
+    top: 50vh;
+    left: 50%;
+    width: 90%;
+    height: 300px;
+    transform: translate(-50%, -50%);
+    aspect-ratio: 1/1;
+    padding: 100%;
+    background-color: var(--dark-color);
+    z-index: -100;
+  }
+
+  .buttons,
+  .rightArea,
+  .songDetails {
+    width: 100%;
+    margin: 0;
+  }
+
+  .buttons {
+    justify-content: space-evenly;
+  }
+
+  .nextButton,
+  .prevButton {
+    padding: 20px;
+    width: 70px;
+    height: 70px;
+    border: none;
+    border-radius: 50%;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .rightArea {
+    display: none;
+
+  }
+
+  /* .player {
+      height: 150px;
+      flex-direction: column-reverse;
+      padding: 10px;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+  }
+
+
+  .songDetails {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 80%;
+    margin-bottom: 10px;
+          position: relative;
+      bottom: 30px;
+
+} */
+
+  .player {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+  }
+
+  .songDetails {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 90%;
+    position: relative;
+    bottom: 40px;
+
+  }
+
+  .buttons {
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+  }
+
+}
+
+.screen{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+    height: calc(100vh - 85px);
+    background-color: var(--dark-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.closedScreen{
+  width: 0;
+}
+
+
+
+
+.hiddenVideo {
+  display: none;
+}

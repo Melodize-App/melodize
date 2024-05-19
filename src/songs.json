@@ -1,0 +1,50 @@
+[
+    {
+        "name": "Higher",
+        "artist": "The Score",
+        "cover_image": "https://i.ytimg.com/vi/XclXvB1Gmnc/maxresdefault.jpg",
+        "youtube_link": "https://www.youtube.com/watch?v=XclXvB1Gmnc"
+    },
+    {
+        "name": "Radioactive",
+        "artist": "Imagine Dragons",
+        "cover_image": "https://i1.sndcdn.com/artworks-000058618127-o9ql4a-t500x500.jpg",
+        "youtube_link": "https://www.youtube.com/watch?v=ktvTqknDobU"
+    },
+    {
+        "name": "Unstoppable",
+        "artist": "The Score",
+        "cover_image": "https://i1.sndcdn.com/artworks-Kz8XL3scDP16-0-t500x500.jpg",
+        "youtube_link": "https://www.youtube.com/watch?v=_PBlykN4KIY"
+    },
+    {
+        "name": "Stronger",
+        "artist": "The Score",
+        "cover_image": "https://i.ytimg.com/vi/_ubnhgZgsfc/maxresdefault.jpg",
+        "youtube_link": "https://www.youtube.com/watch?v=cNld-AHw-Wg"
+    },
+    {
+        "name": "High Hopes",
+        "artist": "Panic! At The Disco",
+        "cover_image": "https://cdn.cloudflare.steamstatic.com/steam/apps/1167663/capsule_616x353.jpg?t=1685695710",
+        "youtube_link": "https://www.youtube.com/watch?v=IPXIgEAGe4U"
+    },
+    {
+        "name": "Human",
+        "artist": "Rag'n'Bone Man",
+        "cover_image": "https://i.ytimg.com/vi/L3wKzyIN1yk/maxresdefault.jpg",
+        "youtube_link": "https://www.youtube.com/watch?v=L3wKzyIN1yk"
+    },
+    {
+        "name": "Born For This",
+        "artist": "The Score",
+        "cover_image": "https://i.ytimg.com/vi/aJ5IzGBnWAc/mqdefault.jpg",
+        "youtube_link": "https://www.youtube.com/watch?v=aJ5IzGBnWAc"
+    },
+    {
+        "name": "Ride",
+        "artist": "twenty one pilots",
+        "cover_image": "https://upload.wikimedia.org/wikipedia/en/5/53/Twenty_One_Pilots_%E2%80%93_Ride.jpg",
+        "youtube_link": "https://www.youtube.com/watch?v=Pw-0pbY9JeU"
+    }
+]

@@ -1,0 +1,144 @@
+.leftSide {
+    display: flex;
+    align-items: center;
+}
+
+.rightSide {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.song {
+    color: white;
+    width: 90%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    margin: 10px;
+    border-radius: var(--border-radius);
+    background-color: var(--dark-color);
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+.song:hover {
+    background-color: var(--main-color);
+
+
+    cursor: pointer;
+    transform: scale(1.02);
+
+}
+
+.song.active {
+    background-color: var(--main-color);
+}
+
+.artistAndName {
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.artistAndName>.name {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 2%;
+}
+
+.artistAndName>.artist {
+    font-size: 14px;
+    font-weight: 100;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 30%;
+    overflow: hidden;
+}
+
+.likeAndTime {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.time {
+    margin-right: 10px;
+    font-size: 12px;
+    font-weight: 100;
+}
+
+/* .liked{
+    color: white;
+    font-size: 100px;
+} */
+.likeButton {
+    background: none;
+    border: none;
+    color: white;
+    padding: 0;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.likeButton svg {
+    font-size: 1.2rem;
+}
+
+.likeButton.liked {
+    color: var(--bright-color);
+}
+
+.likeButton:hover {
+    color: var(--bright-color);
+}
+
+@media (max-width: 768px) {
+    .artistAndName {
+        padding-left: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 150px;
+    }
+
+    .artistAndName>.name {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 2%;
+
+    }
+
+    .artistAndName>.artist {
+        font-size: 12px;
+        font-weight: 100;
+    }
+
+    .image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 30%;
+        overflow: hidden;
+        aspect-ratio: 1/1;
+    }
+
+}
