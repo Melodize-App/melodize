@@ -5,21 +5,16 @@ import PlayListBox from '../PlayListBox/PlayListBox';
 import DataContext from '../context/DataContext';
 import styles from "./style.module.css"
 
-export default function PlyLists({ onSongClick}) {
-  const { songs, setSongs, playLists, setplayLists } = useContext(DataContext);
+export default function PlyLists() {
+  const { songs, setSongs, playLists } = useContext(DataContext);
 
-  
-
-  
   return (
-<div className={styles.listt}>
-  {playLists?.map(playlist => (
-    <div key={playlist.name}>
-      <PlayListBox playlist={playlist} />
+    <div className={styles.listt}>
+      {playLists?.map(playlist => (
+        <div key={playlist.name}>
+          <PlayListBox playlist={playlist} />
+        </div>
+      ))}
     </div>
-  ))}
-</div>
-
   )
-
 }

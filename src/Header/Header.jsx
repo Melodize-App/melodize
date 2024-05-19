@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from "./style.module.css";
 import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom'; // ייבוא ה-hook useNavigate
+import { useNavigate } from 'react-router-dom';
 import Search from '../Search/Search';
 import { AiOutlineUser } from "react-icons/ai";
 import { IoMdLogOut } from "react-icons/io";
@@ -35,14 +35,12 @@ export default function Header({ handleSearch }) {
   };
 
 
-  // check outsides clicks
   const handleClickOutside = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
       setIsOpen(false);
     }
   };
 
-  //clicks tracker
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -54,7 +52,7 @@ export default function Header({ handleSearch }) {
     <>
       <div className={styles.header}>
         <div onClick={handleLogoClick} className={styles.logo}>
-          <img src="public\Melodize logo.png" alt="" />
+          <img src="Melodize logo.png" alt="" />
         </div>
         <div className={styles.search}>
           <Search handleSearch={handleSearch} />
