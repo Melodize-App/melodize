@@ -17,6 +17,8 @@ export default function Layout() {
   const [user, setUser] = useState([]);
   const [songs, setSongs] = useState([])
   const [topFiveSongs, setTopFiveSongs] = useState([]);
+  const [craftedSongs, setCraftedSongs] = useState([]);
+  const [trendingSongs, setTrendingSongs] = useState([]);
   const [currentSource, setCurrentSource] = useState("")
   const [song, setSong] = useState([]);
   const [currentSongUrl, setCurrentSongUrl] = useState(null);
@@ -68,7 +70,7 @@ export default function Layout() {
   // Handle search functionality
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm);
-    navigate("/");
+    navigate("/home");
   };
 
   // Format image link for song thumbnails
@@ -82,35 +84,35 @@ export default function Layout() {
     return defaultImageLink;
   }
 
-  // Handle song click to play specific song
-  const handleSongClick = (songID, songDetails, source) => {
-    setCurrentSource(source);
-    let url = `https://www.youtube.com/watch?v=${songID}`;
-    setCurrentSongUrl(url);
-    setSong(songDetails);
-    setCurrentSongId(songID);
+ // Handle song click to play specific song
+ const handleSongClick = (songID, songDetails, source) => {
+  setCurrentSource(source);
+  let url = `https://www.youtube.com/watch?v=${songID}`;
+  setCurrentSongUrl(url);
+  setSong(songDetails);
+  setCurrentSongId(songID);
 
-    const token = localStorage.getItem('token');
-    const imageLink = formattedImageLink(songDetails.thumbnails);
+  const token = localStorage.getItem('token');
+  const imageLink = formattedImageLink(songDetails.thumbnails);
 
-    axios.post("http://localhost:3000/top", {
-      video_id: songDetails.video_id,
-      title: songDetails.title,
-      author: songDetails.author,
-      thumbnails: imageLink,
-      user: user._id,
-      video_length: songDetails.video_length
-    }, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).then(response => {
-      console.log('Listened Song added successfully:', response);
-    })
-    .catch(error => {
-      console.error('Error adding song:', error);
-    });
-  };
+  axios.post("http://localhost:3000/top", {
+    video_id: songDetails.video_id,
+    title: songDetails.title,
+    author: songDetails.author,
+    thumbnails: imageLink,
+    user: user._id,
+    video_length: songDetails.video_length
+  }, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }).then(response => {
+    console.log('Listened Song added successfully:', response);
+  })
+  .catch(error => {
+    console.error('Error adding song:', error);
+  });
+};
 
 
   // Handle next and previous song functionality
@@ -135,7 +137,7 @@ export default function Layout() {
   };
 
 
-  // Fetch top five songs
+  // Fetch top songs
   useEffect(() => {
     const token = localStorage.getItem('token');
     axios.get(`http://localhost:3000/top/65f6adca8facfe1788d48d21`, {
@@ -152,6 +154,39 @@ export default function Layout() {
     });
   }, []);
 
+    // Fetch crafted songs
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      axios.get(`http://localhost:3000/crafted/65f6adca8facfe1788d48d21`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        console.log("req test", res.data);
+        setCraftedSongs(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    }, []);
+
+    // Fetch trending songs
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      axios.get(`http://localhost:3000/trending/65f6adca8facfe1788d48d21`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        console.log("req test", res.data);
+        setTrendingSongs(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    }, []);
 
 // Handle favorite song functionality
 const handleFavorite = (song, e, videoId) => {
@@ -213,7 +248,8 @@ const handleFavorite = (song, e, videoId) => {
   return (
     <DataContext.Provider value={{
       songs, setSongs, song, setSong, handleFavorite, likedSongs, setLikedSongs, handleSongClick,
-      searchTerm, setSearchTerm, handleSearch, handleNextPrev, playing, setPlaying, wasPlayed, user, setUser, likedSongsList, setlikedSongsList, topFiveSongs
+      searchTerm, setSearchTerm, handleSearch, handleNextPrev, playing, setPlaying, wasPlayed, user, setUser, likedSongsList, setlikedSongsList, topFiveSongs,
+      craftedSongs,trendingSongs
     }}>
       <div>
         <Header handleSearch={handleSearch} />

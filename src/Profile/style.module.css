@@ -77,20 +77,6 @@
   font-family: var(--base-font);
 }
 
-/* .email {
-  height: 20px;
-
-  color: var(--bright-color);
-  background-color: var(--main-color);
-  padding: 10px;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-  text-align: center;
-  width: 100%; 
-  margin-top: 20px; 
-} */
-
-
 .editButton button {
   height: 40px;
   color: var(--dark-color);

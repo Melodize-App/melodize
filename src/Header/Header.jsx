@@ -6,10 +6,13 @@ import Search from '../Search/Search';
 import { AiOutlineUser } from "react-icons/ai";
 import { IoMdLogOut } from "react-icons/io";
 import { LuSettings } from "react-icons/lu";
+import { FiMenu } from "react-icons/fi";
+
 
 export default function Header({ handleSearch }) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
   const handleLogoClick = () => {
@@ -29,11 +32,17 @@ export default function Header({ handleSearch }) {
     navigate('/login');
   };
 
+  const handleHome = () => {
+    navigate('/home');
+  };
+
+  const handleLiked = () => {
+    navigate('/liked');
+  };
 
   const handleSettings = () => {
     navigate('/settings');
   };
-
 
   const handleClickOutside = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -58,15 +67,47 @@ export default function Header({ handleSearch }) {
           <Search handleSearch={handleSearch} />
         </div>
 
-        <NavLink to="/home" className={({ isActive }) => isActive ? styles.active : styles.unActive}> Home </NavLink>
+        <div className={styles.menuList}>
+          <NavLink to="/home" className={({ isActive }) => isActive ? styles.active : styles.unActive}> Home </NavLink>
 
-        <NavLink to="/liked" className={({ isActive }) => isActive ? styles.active : styles.unActive}>
-          Liked
-        </NavLink>
+          <NavLink to="/liked" className={({ isActive }) => isActive ? styles.active : styles.unActive}>
+            Liked
+          </NavLink>
 
-        <NavLink onMouseEnter={handleProfile} className={({ isActive }) => isActive ? styles.activeProfile : styles.unActiveProfile}>
-          <AiOutlineUser />
-        </NavLink>
+          <NavLink onMouseEnter={handleProfile} className={({ isActive }) => isActive ? styles.activeProfile : styles.unActiveProfile}>
+            <AiOutlineUser />
+          </NavLink>
+        </div>
+
+        <div className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)}>
+          <FiMenu />
+        </div>
+
+        <div className={`${styles.sideMenu} ${menuOpen ? styles.open : ''}`}>
+          
+          <div onClick={handleHome} className={styles.option}>
+            <AiOutlineUser />
+            <div className={styles.optionTitle}>Home</div>
+          </div>
+
+          <div onClick={handleLiked} className={styles.option}>
+            <AiOutlineUser />
+            <div className={styles.optionTitle}>Liked</div>
+          </div>
+          <div onClick={handleEdit} className={styles.option}>
+            <AiOutlineUser />
+            <div className={styles.optionTitle}>Edit Profile</div>
+          </div>
+          <div onClick={handleLogout} className={styles.option}>
+            <IoMdLogOut />
+            <div className={styles.optionTitle}>Logout</div>
+          </div>
+          <div onClick={handleSettings} className={styles.option}>
+            <LuSettings />
+            <div className={styles.optionTitle}>Settings</div>
+          </div>
+        </div>
+
 
         {isOpen && (
           <div ref={menuRef} className={styles.menu}>
@@ -81,7 +122,7 @@ export default function Header({ handleSearch }) {
             </div>
 
             <div onClick={handleSettings} className={styles.option}>
-            <LuSettings />
+              <LuSettings />
               <div className={styles.optionTitle}>Settings</div>
             </div>
           </div>

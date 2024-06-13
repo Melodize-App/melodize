@@ -11,7 +11,7 @@ body {
     display: flex;
     flex-direction: row;
     padding-top: 100px;
-    height: calc(100vh - 180px);
+    /* height: calc(100vh - 180px); */
 }
 
 @media (max-width: 768px) {
