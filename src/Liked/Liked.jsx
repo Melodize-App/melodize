@@ -8,7 +8,7 @@ import styles from "./style.module.css";
 export default function Liked() {
 
 
-  const { handleSongClick, searchTerm, user, setLikedSongs, likedSongsList, setlikedSongsList } = useContext(DataContext);
+  const { handleSongClick, searchTerm, user, setLikedSongs, likedSongsList, setlikedSongsList,apiUrl } = useContext(DataContext);
 
   const userId = user._id;
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function Liked() {
   // Fetch liked songs for the user
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get(`http://localhost:3000/liked/${userId}`, {
+    axios.get(`${apiUrl}/liked/${userId}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
