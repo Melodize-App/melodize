@@ -11,8 +11,11 @@ export default function Login({ setIsAuthenticated }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [incorrectPassword, setIncorrectPassword] = useState(false);
 
-  const apiUrl = import.meta.env.REACT_APP_API_URL;
-
+ //fpr vite:
+  // const apiUrl = import.meta.env.REACT_APP_API_URL;
+  //for build:
+  const apiUrl = process.env.REACT_APP_API_URL;
+  
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
