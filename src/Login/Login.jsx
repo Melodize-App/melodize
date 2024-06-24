@@ -11,12 +11,14 @@ export default function Login({ setIsAuthenticated }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [incorrectPassword, setIncorrectPassword] = useState(false);
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/user/login', {
+      const response = await axios.post(`${apiUrl}/user/login`, {
         email,
         password,
       });

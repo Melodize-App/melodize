@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Profile() {
 
   const navigate = useNavigate();
-  const { user, setUser, playing } = useContext(DataContext);
+  const { user, setUser, apiUrl } = useContext(DataContext);
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState({
     fName: '',
@@ -37,7 +37,7 @@ export default function Profile() {
   const handleSaveChanges = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.put('http://localhost:3000/user', {
+      const response = await axios.put(`${apiUrl}/user`, {
         ...editedUser,
         email: user.email, // Or any other identifier you want to update
       }, {

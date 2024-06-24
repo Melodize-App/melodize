@@ -27,6 +27,8 @@ export default function Layout() {
   const [wasPlayed, setWasPlayed] = useState(false);
   const [likedSongs, setLikedSongs] = useState([]);
 
+  const apiUrl = import.meta.env.REACT_APP_API_URL;
+  
 
   // API request for YouTube songs
   useEffect(() => {
@@ -51,19 +53,19 @@ export default function Layout() {
     const userEmail = localStorage.getItem('userEmail');
     if (userEmail) {
       const token = localStorage.getItem('token');
-      axios.get(`http://localhost:3000/user/${encodeURIComponent(userEmail)}`, {
+      axios.get(`${apiUrl}/user/${encodeURIComponent(userEmail)}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       })
-      .then(res => {
-        setUser(res.data);
-        console.log("GET USER", res.data);
-      })
-      .catch(err => {
-        console.error(err);
-        navigate("/login");
-      });
+        .then(res => {
+          setUser(res.data);
+          console.log("GET USER", res.data);
+        })
+        .catch(err => {
+          console.error(err);
+          navigate("/login");
+        });
     }
   }, []);
 
@@ -95,24 +97,25 @@ export default function Layout() {
   const token = localStorage.getItem('token');
   const imageLink = formattedImageLink(songDetails.thumbnails);
 
-  axios.post("http://localhost:3000/top", {
-    video_id: songDetails.video_id,
-    title: songDetails.title,
-    author: songDetails.author,
-    thumbnails: imageLink,
-    user: user._id,
-    video_length: songDetails.video_length
-  }, {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  }).then(response => {
-    console.log('Listened Song added successfully:', response);
-  })
-  .catch(error => {
-    console.error('Error adding song:', error);
-  });
-};
+
+    axios.post(`${apiUrl}/top/`, {
+      video_id: songDetails.video_id,
+      title: songDetails.title,
+      author: songDetails.author,
+      thumbnails: imageLink,
+      user: user._id,
+      video_length: songDetails.video_length
+    }, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then(response => {
+      console.log('Listened Song added successfully:', response);
+    })
+      .catch(error => {
+        console.error('Error adding song:', error);
+      });
+  };
 
 
   // Handle next and previous song functionality
@@ -140,18 +143,20 @@ export default function Layout() {
   // Fetch top songs
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get(`http://localhost:3000/top/65f6adca8facfe1788d48d21`, {
+
+
+    axios.get(`${apiUrl}/top/65f6adca8facfe1788d48d21`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     })
-    .then(res => {
-      console.log("req test", res.data);
-      setTopFiveSongs(res.data);
-    })
-    .catch(err => {
-      console.error(err);
-    });
+      .then(res => {
+        console.log("req test", res.data);
+        setTopFiveSongs(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }, []);
 
     // Fetch crafted songs
@@ -188,50 +193,50 @@ export default function Layout() {
       });
     }, []);
 
-// Handle favorite song functionality
-const handleFavorite = (song, e, videoId) => {
-  e.stopPropagation();
-  const token = localStorage.getItem('token');
-  const isAlreadyLiked = likedSongs.includes(videoId);
+  // Handle favorite song functionality
+  const handleFavorite = (song, e, videoId) => {
+    e.stopPropagation();
+    const token = localStorage.getItem('token');
+    const isAlreadyLiked = likedSongs.includes(videoId);
 
-  if (isAlreadyLiked) {
-    axios.put("http://localhost:3000/liked", { video_id: song.video_id, isLiked: false }, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).then(response => {
-      console.log('Song removed:', response);
-      setLikedSongs(likedSongs => likedSongs.filter(id => id !== videoId));
-      setLikedSongs(likedSongs => likedSongs.map(song => song.id === videoId ? { ...song, likedStatus: false } : song));
-      localStorage.setItem('likedSongs', JSON.stringify([...likedSongs, videoId]));
-    })
-    .catch(error => {
-      console.error('Error removing song:', error);
-      navigate("/login");
-    });
-  } else {
-    axios.post("http://localhost:3000/liked", {
-      video_id: song.video_id,
-      title: song.title,
-      author: song.author,
-      thumbnails: song?.thumbnails[0]?.url,
-      isLiked: true,
-      userId: user._id,
-      video_length: song.video_length
-    }, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).then(response => {
-      console.log('Song added successfully:', response);
-      setLikedSongs(likedSongs => [...likedSongs, videoId]);
-      localStorage.setItem('likedSongs', JSON.stringify([...likedSongs, videoId]));
-    })
-    .catch(error => {
-      console.error('Error adding song:', error);
-    });
-  }
-};
+    if (isAlreadyLiked) {
+      axios.put(`${apiUrl}/liked`, { video_id: song.video_id, isLiked: false }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }).then(response => {
+        console.log('Song removed:', response);
+        setLikedSongs(likedSongs => likedSongs.filter(id => id !== videoId));
+        setLikedSongs(likedSongs => likedSongs.map(song => song.id === videoId ? { ...song, likedStatus: false } : song));
+        localStorage.setItem('likedSongs', JSON.stringify([...likedSongs, videoId]));
+      })
+        .catch(error => {
+          console.error('Error removing song:', error);
+          navigate("/login");
+        });
+    } else {
+      axios.post(`${apiUrl}/liked`, {
+        video_id: song.video_id,
+        title: song.title,
+        author: song.author,
+        thumbnails: song?.thumbnails[0]?.url,
+        isLiked: true,
+        userId: user._id,
+        video_length: song.video_length
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }).then(response => {
+        console.log('Song added successfully:', response);
+        setLikedSongs(likedSongs => [...likedSongs, videoId]);
+        localStorage.setItem('likedSongs', JSON.stringify([...likedSongs, videoId]));
+      })
+        .catch(error => {
+          console.error('Error adding song:', error);
+        });
+    }
+  };
 
   // Load liked songs from local storage
   useEffect(() => {
@@ -247,9 +252,8 @@ const handleFavorite = (song, e, videoId) => {
 
   return (
     <DataContext.Provider value={{
-      songs, setSongs, song, setSong, handleFavorite, likedSongs, setLikedSongs, handleSongClick,
-      searchTerm, setSearchTerm, handleSearch, handleNextPrev, playing, setPlaying, wasPlayed, user, setUser, likedSongsList, setlikedSongsList, topFiveSongs,
-      craftedSongs,trendingSongs
+      songs, setSongs, song, setSong, handleFavorite, likedSongs, setLikedSongs, handleSongClick, apiUrl,
+      searchTerm, setSearchTerm, handleSearch, handleNextPrev, playing, setPlaying, wasPlayed, user, setUser, likedSongsList, setlikedSongsList, topFiveSongs
     }}>
       <div>
         <Header handleSearch={handleSearch} />
