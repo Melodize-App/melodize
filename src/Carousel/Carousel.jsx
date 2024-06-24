@@ -1,22 +1,27 @@
-
 import React, { useState } from 'react';
 import styles from './style.module.css';
 import PlayListBox from '../PlayListBox/PlayListBox';
 import { GrNext, GrPrevious } from "react-icons/gr";
 
 export default function Carousel({ songsList, itemsPerSlide = 2, onSongClick }) {
+
     const [currentSlide, setCurrentSlide] = useState(0);
 
     const nextSlide = () => {
-        setCurrentSlide((prevSlide) =>
-            prevSlide + 1 < Math.ceil(songsList.length / itemsPerSlide) ? prevSlide + 1 : 0
-        );
+
+        if (currentSlide < 1) {
+            setCurrentSlide((prevSlide) =>
+                prevSlide + 1 < Math.ceil(songsList.length / itemsPerSlide) ? prevSlide + 1 : 0
+            );
+        }
     };
 
     const prevSlide = () => {
-        setCurrentSlide((prevSlide) =>
-            prevSlide - 1 >= 0 ? prevSlide - 1 : Math.ceil(songsList.length / itemsPerSlide) - 1
-        );
+        if (currentSlide <= 1 && currentSlide != 0) {
+            setCurrentSlide((prevSlide) =>
+                prevSlide - 1 >= 0 ? prevSlide - 1 : Math.ceil(songsList.length / itemsPerSlide) - 1
+            );
+        }
     };
 
     const [activeSongId, setActiveSongId] = useState(null);

@@ -12,5 +12,4 @@ export default function SongsList({ onSongClick, songs }) {
       ))}
     </div>
   )
-
 }
