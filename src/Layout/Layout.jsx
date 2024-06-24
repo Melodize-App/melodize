@@ -26,6 +26,7 @@ export default function Layout() {
   const [currentSongId, setCurrentSongId] = useState(null);
   const [wasPlayed, setWasPlayed] = useState(false);
   const [likedSongs, setLikedSongs] = useState([]);
+  const navigate = useNavigate();
 
   const apiUrl = import.meta.env.REACT_APP_API_URL;
   
@@ -162,7 +163,7 @@ export default function Layout() {
     // Fetch crafted songs
     useEffect(() => {
       const token = localStorage.getItem('token');
-      axios.get(`http://localhost:3000/crafted/65f6adca8facfe1788d48d21`, {
+      axios.get(`${apiUrl}/crafted/65f6adca8facfe1788d48d21`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -179,7 +180,8 @@ export default function Layout() {
     // Fetch trending songs
     useEffect(() => {
       const token = localStorage.getItem('token');
-      axios.get(`http://localhost:3000/trending/65f6adca8facfe1788d48d21`, {
+      axios.get(`${apiUrl}/trending/65f6adca8facfe1788d48d21`, {
+
         headers: {
           'Authorization': `Bearer ${token}`
         }

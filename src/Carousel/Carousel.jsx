@@ -3,7 +3,7 @@ import styles from './style.module.css';
 import PlayListBox from '../PlayListBox/PlayListBox';
 import { GrNext, GrPrevious } from "react-icons/gr";
 
-export default function Carousel({ songsList, itemsPerSlide = 2, onSongClick }) {
+export default function Carousel({ songsList=[], itemsPerSlide = 2, onSongClick }) {
 
     const [currentSlide, setCurrentSlide] = useState(0);
 
