@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import DataContext from '../context/DataContext';
@@ -6,14 +6,11 @@ import SongsList from '../Songlist/SongsList';
 import styles from "./style.module.css";
 
 export default function Liked() {
-
-
-  const { handleSongClick, searchTerm, user, setLikedSongs, likedSongsList, setlikedSongsList,apiUrl } = useContext(DataContext);
+  const { handleSongClick, searchTerm, user, setLikedSongs, likedSongsList, setlikedSongsList, apiUrl } = useContext(DataContext);
 
   const userId = user._id;
   const navigate = useNavigate();
 
-  // Fetch liked songs for the user
   useEffect(() => {
     const token = localStorage.getItem('token');
     axios.get(`${apiUrl}/liked/${userId}`, {
@@ -29,12 +26,11 @@ export default function Liked() {
         console.error(err);
         navigate("/");
       });
-
-  }, [userId, setLikedSongs]);
+  }, [userId, setLikedSongs, apiUrl, navigate]);
 
   return (
-    <div className={styles.likedPage}>
-      <div className={styles.listContainer}>
+    <div className={`${styles.likedPage} ${styles.fadeIn}`}>
+      <div className={`${styles.listContainer} ${styles.slideIn}`}>
         <SongsList
           onSongClick={(songID, song) => handleSongClick(songID, song, "favorites")}
           searchTerm={searchTerm}

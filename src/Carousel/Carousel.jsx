@@ -1,43 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styles from './style.module.css';
 import PlayListBox from '../PlayListBox/PlayListBox';
 import { GrNext, GrPrevious } from "react-icons/gr";
 
-export default function Carousel({ songsList=[], itemsPerSlide = 2, onSongClick }) {
-
-    const [currentSlide, setCurrentSlide] = useState(0);
-
-    const nextSlide = () => {
-
-        if (currentSlide < 1) {
-            setCurrentSlide((prevSlide) =>
-                prevSlide + 1 < Math.ceil(songsList.length / itemsPerSlide) ? prevSlide + 1 : 0
-            );
-        }
-    };
-
-    const prevSlide = () => {
-        if (currentSlide <= 1 && currentSlide != 0) {
-            setCurrentSlide((prevSlide) =>
-                prevSlide - 1 >= 0 ? prevSlide - 1 : Math.ceil(songsList.length / itemsPerSlide) - 1
-            );
-        }
-    };
-
+export default function Carousel({ songsList = [], itemsPerSlide = 2, onSongClick }) {
     const [activeSongId, setActiveSongId] = useState(null);
+    const carouselRef = useRef(null);
+    const [isScrolling, setIsScrolling] = useState(false);
 
-    const handleActiveSong = (videoId, song) => {
+    // Duplicate the songsList to create the illusion of infinite scroll
+    const extendedSongsList = [...songsList, ...songsList, ...songsList];
+
+    useEffect(() => {
+        if (carouselRef.current) {
+            const scrollWidth = carouselRef.current.scrollWidth;
+            const clientWidth = carouselRef.current.clientWidth;
+            
+            // Set initial scroll position to the middle set of items
+            carouselRef.current.scrollLeft = (scrollWidth - clientWidth) / 3;
+        }
+    }, [songsList]);
+
+    const handleScroll = useCallback(() => {
+        if (carouselRef.current && !isScrolling) {
+            const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+            
+            // If we're near the end, jump back to the middle
+            if (scrollLeft + clientWidth > scrollWidth * 2 / 3) {
+                setIsScrolling(true);
+                carouselRef.current.scrollLeft = scrollWidth / 3;
+                setTimeout(() => setIsScrolling(false), 50);
+            }
+            // If we're near the start, jump forward to the middle
+            else if (scrollLeft < scrollWidth / 3) {
+                setIsScrolling(true);
+                carouselRef.current.scrollLeft = scrollWidth / 3;
+                setTimeout(() => setIsScrolling(false), 50);
+            }
+        }
+    }, [isScrolling]);
+
+    const scroll = (direction) => {
+        if (carouselRef.current) {
+            const scrollAmount = carouselRef.current.clientWidth;
+            carouselRef.current.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    };
+
+    const handleActiveSong = useCallback((videoId, song) => {
         setActiveSongId(videoId);
         onSongClick(videoId, song);
-    };
+    }, [onSongClick]);
 
     return (
         <div className={styles.carousel}>
-            <button className={styles.prevButton} onClick={prevSlide}><GrPrevious /></button>
-            <div className={styles.carouselWrapper}>
-                <div className={styles.carouselInner} style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-                    {songsList.map((song, index) => (
-                        <div className={styles.slide} key={song.video_id}>
+            <button className={styles.prevButton} onClick={() => scroll(-1)}><GrPrevious /></button>
+            <div 
+                className={styles.carouselWrapper} 
+                ref={carouselRef}
+                onScroll={handleScroll}
+            >
+                <div className={styles.carouselInner}>
+                    {extendedSongsList.map((song, index) => (
+                        <div className={styles.slide} key={`${song.video_id}-${index}`}>
                             <PlayListBox
                                 song={song}
                                 isActive={song.video_id === activeSongId}
@@ -47,7 +75,7 @@ export default function Carousel({ songsList=[], itemsPerSlide = 2, onSongClick 
                     ))}
                 </div>
             </div>
-            <button className={styles.nextButton} onClick={nextSlide}><GrNext /></button>
+            <button className={styles.nextButton} onClick={() => scroll(1)}><GrNext /></button>
         </div>
     );
 }

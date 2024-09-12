@@ -15,6 +15,8 @@
   z-index: 1000;
   box-shadow: var(--shadow);
   box-sizing: border-box;
+  transform: translateY(-100%);
+  opacity: 0;
 }
 
 .logo img {
@@ -27,12 +29,11 @@
   cursor: pointer;
 }
 
-
-.search{
+.search {
   display: flex;
   flex-shrink: 0;
+  opacity: 0;
 }
-
 
 .active {
   text-decoration: none;
@@ -43,7 +44,6 @@
   background-color: var(--main-color);
   color: var(--bright-color);
   box-shadow: var(--shadow);
-
 }
 
 .activeProfile {
@@ -60,7 +60,6 @@
   background-color: var(--main-color);
   color: var(--bright-color);
   box-shadow: var(--shadow);
-
 }
 
 .unActive {
@@ -71,7 +70,6 @@
   border-radius: var(--border-radius);
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
-
 
 .unActiveProfile {
   display: flex;
@@ -158,23 +156,58 @@
   cursor: pointer;
 }
 
-.menuList{
+.menuList {
   display: flex;
   flex-direction: row;
+  opacity: 0;
 }
 
-.hamburger{
+.hamburger {
   display: none;
 }
-
-
 
 .sideMenu {
-
   display: none;
 }
 
+.slideDown {
+  animation: slideDown 0.5s ease-out forwards;
+}
 
+.slideInFromLeft {
+  animation: slideInFromLeft 0.5s ease-out forwards;
+}
+
+.fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes slideDown {
+  from { 
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to { 
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from { 
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to { 
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 @media (max-width: 768px) {
   .header {
@@ -198,26 +231,27 @@
   .sideMenu {
     position: fixed;
     top: 100px;
-    left: -100%;
+    left: 0;
     height: 100%;
     width: 50%;
     background-color: var(--dark-color);
     color: var(--bright-color);
     box-shadow: var(--shadow);
-    transition: left 0.3s ease;
     z-index: 1001;
     display: flex;
     flex-direction: column;
     padding: 20px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
   }
 
   .sideMenu.open {
-    left: 0;
+    transform: translateX(0);
   }
 
   .sideMenu a, .sideMenu .option {
     margin: 10px 0;
-    width: calc(100% - 20px); /* Ensure elements stay within the side menu */
+    width: calc(100% - 20px);
   }
 
   .sideMenu .option {

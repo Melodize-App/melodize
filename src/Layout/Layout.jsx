@@ -62,7 +62,6 @@ export default function Layout() {
       })
         .then(res => {
           setUser(res.data);
-          console.log("GET USER", res.data);
         })
         .catch(err => {
           console.error(err);

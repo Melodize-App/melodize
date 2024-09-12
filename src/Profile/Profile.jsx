@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function Profile() {
-
   const navigate = useNavigate();
   const { user, setUser, apiUrl } = useContext(DataContext);
   const [isEditing, setIsEditing] = useState(false);
@@ -15,7 +14,6 @@ export default function Profile() {
     email: '',
   });
 
-  // Update editedUser when user changes
   useEffect(() => {
     setEditedUser({
       fName: user.fName,
@@ -24,7 +22,6 @@ export default function Profile() {
     });
   }, [user]);
 
-  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditedUser(prevState => ({
@@ -33,36 +30,34 @@ export default function Profile() {
     }));
   };
 
-  // Save changes to user profile
   const handleSaveChanges = async () => {
     const token = localStorage.getItem('token');
     try {
       const response = await axios.put(`${apiUrl}/user`, {
         ...editedUser,
-        email: user.email, // Or any other identifier you want to update
+        email: user.email,
       }, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
       if (response.status === 200) {
-        setUser(response.data); // Update state with new user data from server
+        setUser(response.data);
         setIsEditing(false);
       }
     } catch (error) {
       console.error("Error updating profile", error);
-      navigate("/login"); // Redirect to login if token is expired
+      navigate("/login");
     }
   };
 
-  // Toggle edit mode
   const handleEdit = () => {
     setIsEditing(!isEditing);
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.userBox}>
+    <div className={`${styles.container} ${styles.fadeIn}`}>
+      <div className={`${styles.userBox} ${styles.slideDown}`}>
         <div className={styles.image}>
           <div className={styles.userName}>
             {user.fName} {user.lName}

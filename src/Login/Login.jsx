@@ -10,13 +10,15 @@ export default function Login({ setIsAuthenticated }) {
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [incorrectPassword, setIncorrectPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
-  
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
+    setIncorrectPassword(false);
 
     try {
       const response = await axios.post(`${apiUrl}/user/login`, {
@@ -33,6 +35,8 @@ export default function Login({ setIsAuthenticated }) {
     } catch (error) {
       console.error('Login error:', error.response ? error.response.data : error.message);
       setIncorrectPassword(true); // Show incorrect password message
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -84,7 +88,10 @@ export default function Login({ setIsAuthenticated }) {
           </button>
         </div>
 
-        <button type="submit" className={styles.submitButton}>Login</button>
+        <button type="submit" className={`${styles.submitButton} ${isLoading ? styles.loading : ''}`} disabled={isLoading}>
+          <span>Login</span>
+          {isLoading && <div className={styles.spinner}></div>}
+        </button>
         {incorrectPassword && (
           <div className={styles.incorrect}>
             Login failed. Please check your username, password, and internet connection.

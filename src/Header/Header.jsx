@@ -8,7 +8,6 @@ import { IoMdLogOut } from "react-icons/io";
 import { LuSettings } from "react-icons/lu";
 import { FiMenu } from "react-icons/fi";
 
-
 export default function Header({ handleSearch }) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -57,29 +56,29 @@ export default function Header({ handleSearch }) {
     };
   }, []);
 
+  
+
   return (
     <>
-      <div className={styles.header}>
-        <div onClick={handleLogoClick} className={styles.logo}>
+      <div className={`${styles.header} ${styles.slideDown}`}>
+        <div onClick={handleLogoClick} className={`${styles.logo} ${styles.slideInFromLeft}`}>
           <img src="Melodize logo.png" alt="" />
         </div>
-        <div className={styles.search}>
+        <div className={`${styles.search} ${styles.fadeIn}`}>
           <Search handleSearch={handleSearch} />
         </div>
 
-        <div className={styles.menuList}>
+        <div className={`${styles.menuList} ${styles.fadeIn}`}>
           <NavLink to="/home" className={({ isActive }) => isActive ? styles.active : styles.unActive}> Home </NavLink>
-
           <NavLink to="/liked" className={({ isActive }) => isActive ? styles.active : styles.unActive}>
             Liked
           </NavLink>
-
           <NavLink onMouseEnter={handleProfile} className={({ isActive }) => isActive ? styles.activeProfile : styles.unActiveProfile}>
             <AiOutlineUser />
           </NavLink>
         </div>
 
-        <div className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)}>
+        <div className={`${styles.hamburger} ${styles.fadeIn}`} onClick={() => setMenuOpen(!menuOpen)}>
           <FiMenu />
         </div>
 
