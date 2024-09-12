@@ -29,7 +29,7 @@ export default function Layout() {
   const navigate = useNavigate();
 
   // const apiUrl = import.meta.env.REACT_APP_API_URL;
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = import.meta.env.VITE_API_URL;
   
 
   // API request for YouTube songs
@@ -153,7 +153,6 @@ export default function Layout() {
       }
     })
       .then(res => {
-        console.log("req test", res.data);
         setTopFiveSongs(res.data);
       })
       .catch(err => {
@@ -170,7 +169,6 @@ export default function Layout() {
         }
       })
       .then(res => {
-        console.log("req test", res.data);
         setCraftedSongs(res.data);
       })
       .catch(err => {
@@ -188,7 +186,6 @@ export default function Layout() {
         }
       })
       .then(res => {
-        console.log("req test", res.data);
         setTrendingSongs(res.data);
       })
       .catch(err => {
